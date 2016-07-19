@@ -84,10 +84,18 @@ try
         }
 
         It "Set method calls Compare-Folder" {
+            Mock Compare-Folder -MockWith {
+              [PSCustomObject]@{
+                    SourceFolder = "C:\Temp\Source"
+                    DestinationFolder = "C:\Temp\Destination"
+                    Test = $true
+              }
+                }
+            
             Set-TargetResource @testParameters
 
             #TODO: Assert that the appropriate cmdlets were called
-            Assert-MockCalled Compare-Folder
+            Assert-MockCalled -CommandName Compare-Folder -Exactly 1
         }
     }
     #endregion Example state 1

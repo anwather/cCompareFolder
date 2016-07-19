@@ -15,13 +15,25 @@
     catch
         {
             Write-Verbose "$DestinationFolder is empty"
+            
         }
 
-    if ($null -eq $destination)
+    if (($null -eq $destination) -and (!($Test)))
         {
+            Write-Verbose "Null and not test"
             $source | Copy-Item -Destination $DestinationFolder -Recurse -Verbose
             $comp = $null
         }
+    
+    if (($null -eq $destination) -and (($Test)))
+        {
+            Write-Verbose "Null and test"
+            #$source | Copy-Item -Destination $DestinationFolder -Recurse -Verbose
+            $comp = "Dummy Value"
+        }
+
+    
+
 
 if ($Test)
     {
