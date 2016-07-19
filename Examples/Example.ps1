@@ -17,7 +17,7 @@
     }
 
 #Prepare Module
-Copy-Item C:\Temp\cCompareFolder -Destination 'C:\Program Files\WindowsPowerShell\Modules' -Force
+Copy-Item C:\Temp\cCompareFolder -Destination 'C:\Program Files\WindowsPowerShell\Modules' -Force -Recurse -Verbose
 
 Set-Location C:\temp
 
