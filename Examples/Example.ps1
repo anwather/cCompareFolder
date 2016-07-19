@@ -24,3 +24,7 @@ Set-Location C:\temp
 FolderTest 
 
 Start-DSCConfiguration .\FolderTest -Wait -Verbose -Force
+
+Get-DscConfiguration
+
+Get-DscConfigurationStatus
