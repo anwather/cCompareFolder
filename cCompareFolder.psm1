@@ -33,11 +33,11 @@ if ($Test)
                 {$_.SideIndicator -eq "=>"} {Write-Verbose "Destination: $($_.InputObject) does not exist in $SourceFolder";Remove-Item "$DestinationFolder\$($_.InputObject)" -Force -Verbose}
             }#>
             Write-Verbose "Differences Found"
-        return $false
+            return $false
         }
     else
         {
-            Write-Verbose "No differences detected between $SourceFolder and $DestinationFolder"
+            Write-Verbose "Test: No differences detected between $SourceFolder and $DestinationFolder"
             return $true
         }
     }
@@ -50,12 +50,12 @@ else
                 {$_.SideIndicator -eq "<="} {Write-Verbose "Source: $($_.InputObject) does not exist in $DestinationFolder";Copy-Item "$SourceFolder\$($_.InputObject)" -Destination $destinationFolder -Verbose}
                 {$_.SideIndicator -eq "=>"} {Write-Verbose "Destination: $($_.InputObject) does not exist in $SourceFolder";Remove-Item "$DestinationFolder\$($_.InputObject)" -Force -Verbose}
             }
-        #Write-Verbose "Differences Found"
+            Write-Verbose "Differences Found"
         #return $false
         }
     else
         {
-            Write-Verbose "No differences detected between $SourceFolder and $DestinationFolder"
+            Write-Verbose "2. No differences detected between $SourceFolder and $DestinationFolder"
         #return $true
         }
     }

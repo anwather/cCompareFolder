@@ -13,8 +13,8 @@
 
 
 # TODO: Customize these parameters...
-$script:DSCModuleName      = '<ModuleName>' # Example xNetworking
-$script:DSCResourceName    = '<ResourceName>' # Example MSFT_xFirewall
+$script:DSCModuleName      = 'cCompareFolder' # Example xNetworking
+$script:DSCResourceName    = 'cCompareFolder' # Example MSFT_xFirewall
 # /TODO
 
 #region HEADER
@@ -67,24 +67,27 @@ try
 
         #TODO: Create a set of parameters to test your get/test/set methods in this state
         $testParameters = @{
-            Property1 = "value"
-            Property2 = "value"
+            SourceFolder = "C:\Temp\Source"
+            DestinationFolder = "C:\Temp\Destination"
+            
         }
 
         #TODO: Update the assertions below to align with the expected results of this state
-        It "Get method returns 'something'" {
-            Get-TargetResource @testParameters | Should Be "something"
+        It "Get method returns $($testParameters.SourceFolder)" {
+            $result = Get-TargetResource @testParameters 
+            $result.SourceFolder | Should Be $testParameters.SourceFolder
         }
 
         It "Test method returns false" {
+            Get-ChildItem $testParameters.DestinationFolder | Remove-Item -Force
             Test-TargetResource @testParameters | Should be $false
         }
 
-        It "Set method calls Demo-CmdletName" {
+        It "Set method calls Compare-Folder" {
             Set-TargetResource @testParameters
 
             #TODO: Assert that the appropriate cmdlets were called
-            Assert-MockCalled Demo-CmdletName 
+            Assert-MockCalled Compare-Folder
         }
     }
     #endregion Example state 1
