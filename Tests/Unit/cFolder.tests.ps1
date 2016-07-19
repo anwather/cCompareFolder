@@ -84,7 +84,7 @@ try
         }
 
         It "Set method calls Compare-Folder" {
-            Mock Compare-Folder -MockWith {
+            Mock Set-TargetResource -MockWith {
               [PSCustomObject]@{
                     SourceFolder = "C:\Temp\Source"
                     DestinationFolder = "C:\Temp\Destination"
@@ -95,7 +95,7 @@ try
             Set-TargetResource @testParameters
 
             #TODO: Assert that the appropriate cmdlets were called
-            Assert-MockCalled -CommandName Compare-Folder -Exactly 1
+            Assert-MockCalled -CommandName Set-TargetResource -Exactly 1
         }
     }
     #endregion Example state 1
@@ -105,17 +105,21 @@ try
         #TODO: Mock cmdlets here that represent the system being in the desired state
 
         #TODO: Create a set of parameters to test your get/test/set methods in this state
+        #TODO: Create a set of parameters to test your get/test/set methods in this state
         $testParameters = @{
-            Property1 = "value"
-            Property2 = "value"
+            SourceFolder = "C:\Temp\Source"
+            DestinationFolder = "C:\Temp\Destination"
+            
         }
 
         #TODO: Update the assertions below to align with the expected results of this state
-        It "Get method returns 'something'" {
-            Get-TargetResource @testParameters | Should Be "something"
+        It "Get method returns $($testParameters.SourceFolder)" {
+            $result = Get-TargetResource @testParameters 
+            $result.SourceFolder | Should Be $testParameters.SourceFolder
         }
 
         It "Test method returns true" {
+            Set-TargetResource @testParameters
             Test-TargetResource @testParameters | Should be $true
         }
     }
@@ -126,11 +130,11 @@ try
     # TODO: Pester Tests for any non-exported Helper Cmdlets
     # If the resource does not contain any non-exported helper cmdlets then
     # this block may be safetly deleted.
-    InModuleScope $script:DSCResourceName {
+    #InModuleScope $script:DSCResourceName {
         # The InModuleScope command allows you to perform white-box unit testing
         # on the internal (non-exported) code of a Script Module.
 
-    }
+    #}
     #endregion Non-Exported Function Unit Tests
 }
 finally
@@ -140,4 +144,5 @@ finally
     #endregion
 
     # TODO: Other Optional Cleanup Code Goes Here...
+    Remove-Module cCompareFolder -Force
 }
