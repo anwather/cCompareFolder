@@ -32,7 +32,9 @@ $TestEnvironment = Initialize-TestEnvironment `
     -DSCResourceName $script:DSCResourceName `
     -TestType Unit 
 #endregion HEADER
-
+New-Item C:\Temp\Source -ItemType Directory -Force
+New-Item C:\Temp\Destination -ItemType Directory -Force
+1..10 | ForEach-Object {New-Item "C:\Temp\Source\$_.log" -ItemType File}
 # TODO: Other Optional Init Code Goes Here...
 
 # Begin Testing
